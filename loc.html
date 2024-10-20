@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telugu Vantillu - Location</title>
+    <style>
+        body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f7f7f7; /* Light gray background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.container {
+    background: white; /* White background for the container */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    text-align: center; /* Center the text */
+}
+
+h1 {
+    color: #4CAF50; /* Green color for the heading */
+    font-size: 24px; /* Increase heading size */
+    margin-bottom: 10px;
+}
+
+p {
+    font-size: 16px; /* Font size for the paragraph */
+    margin-bottom: 20px;
+}
+
+.location-input, .location-selector {
+    margin: 15px 0; /* Space between input elements */
+}
+
+input[type="text"], select {
+    width: 100%; /* Full width */
+    padding: 10px; /* Padding for inputs */
+    border: 1px solid #ccc; /* Light gray border */
+    border-radius: 5px; /* Rounded corners */
+    font-size: 16px; /* Font size for inputs */
+}
+
+button {
+    background-color: #4CAF50; /* Green button */
+    color: white; /* White text */
+    padding: 12px 20px; /* Button padding */
+    border: none; /* Remove border */
+    border-radius: 5px; /* Rounded corners */
+    font-size: 16px; /* Font size for the button */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s; /* Smooth transition */
+}
+
+button:hover {
+    background-color: #45a049; /* Darker green on hover */
+}
+body {
+    background-image: url(./Images/DALL·E\ 2024-10-15\ 09.31.11\ -\ A\ vibrant\ background\ image\ for\ a\ food\ stall\ website\ titled\ \'TELUGU\ VANTILLU\'\,\ featuring\ classic\ South\ Indian\ foods\ like\ dosa\,\ vada\,\ mirchi\ bajji\,\ idli\ \(1\).webp); /* Replace with your image path */
+    background-size: cover; /* Cover the entire background */
+    background-position: center; /* Center the background image */
+}
+
+
+    </style>
+
+</head>
+<body>
+    <script>
+        document.getElementById('continue-btn').addEventListener('click', function() {
+    const manualLocation = document.getElementById('manual-location').value.trim();
+    const selectedLocation = document.getElementById('location').value;
+    let locationToPass;
+
+    if (manualLocation) {
+        locationToPass = manualLocation;
+    } else if (selectedLocation) {
+        locationToPass = selectedLocation;
+    } else {
+        alert("Please enter or select a location.");
+        return; // Exit the function if no location is provided
+    }
+
+    // Redirect to the pickup/delivery options page with the location as a URL parameter
+    window.location.href = "pickup_delivery.html?location=" + encodeURIComponent(locationToPass);
+});
+
+    </script>
+    <div class="container">
+        <h1>Welcome to Telugu Vantillu</h1>
+        <p>Please enter or select your location at LPU</p>
+        
+        
+
+        <!-- LPU Hostels Dropdown -->
+        <div class="location-selector">
+            <label for="location">Or choose your hostel:</label>
+            <select id="location">
+                <option value="">--Select Location--</option>
+                <option value="BH1">BH1</option>
+                <option value="BH2">BH2</option>
+                <option value="BH3">BH3</option>
+                <option value="BH4">BH4</option>
+                <option value="BH5">BH5</option>
+                <option value="BH6">BH6</option>
+                <option value="BH7">BH7</option>
+                <option value="GH1">GH1</option>
+                <option value="GH2">GH2</option>
+                <option value="GH3">GH3</option>
+                <option value="GH4">GH4</option>
+                <option value="GH5">GH5</option>
+                <option value="GH6">GH6</option>
+                <option value="GH7">GH7</option>
+                <option value="Apartment">Apartment</option>
+            </select>
+        </div>
+
+        <!-- Continue Button -->
+        <button id="continue-btn"><a href="contact.html">Continue</a></button>
+    </div>
+
+    <!-- JavaScript to handle location input/selection -->
+    <script src="script.js"></script>
+</body>
+</html>

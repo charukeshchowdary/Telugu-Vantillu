@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Cart - Telugu Vantillu</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        h1 {
+            margin: 0;
+        }
+
+        .cart-container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 15px 0;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .cart-item h3 {
+            margin: 0;
+        }
+
+        .cart-item .price {
+            font-weight: bold;
+            color: #28a745;
+        }
+
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+        }
+
+        .quantity-controls button {
+            padding: 5px 10px;
+            margin: 0 5px;
+            border: none;
+            background-color: #ddd;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+
+        .buy-now {
+            display: block;
+            margin: 20px 0;
+            padding: 15px;
+            text-align: center;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        .buy-now:hover {
+            background-color: #218838;
+        }
+
+        .action-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px 0;
+        }
+
+        .action-buttons button {
+            padding: 10px 15px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        .action-buttons button:hover {
+            background-color: #218838;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px 0;
+            background-color: #333;
+            color: #fff;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Your Cart</h1>
+</header>
+
+<div class="cart-container" id="cart-items">
+    <h2>Items in your cart</h2>
+    <!-- Cart items will be dynamically generated here -->
+</div>
+
+<div class="action-buttons">
+    <button onclick="clearCart()">Clear Cart</button>
+    <button onclick="goBack()">Back to Menu</button>
+</div>
+
+<button class="buy-now" onclick="proceedToPayment()">Buy Now</button>
+
+<footer>
+    <p>&copy; 2024 Telugu Vantillu. All rights reserved by CHARUKESH CHOWDARY MADDUKURI.</p>
+</footer>
+
+<script>
+    function addToCart(itemName, price) {
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const existingItemIndex = cart.findIndex(item => item.name === itemName);
+
+    if (existingItemIndex !== -1) {
+        // If the item already exists in the cart, increment its quantity
+        cart[existingItemIndex].quantity += 1;
+    } else {
+        // If it's a new item, add it with a quantity of 1
+        cart.push({ name: itemName, price: price, quantity: 1 });
+    }
+    
+    localStorage.setItem('cart', JSON.stringify(cart));
+    showNotification();
+}
+
+// Function to show a notification
+function showNotification() {
+    const notification = document.getElementById('notification');
+    notification.style.display = 'block';
+    setTimeout(() => {
+        notification.style.display = 'none';
+    }, 2000);
+}
+
+// Function to load cart items
+function loadCart() {
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const cartContainer = document.getElementById('cart-items');
+
+    if (cart.length === 0) {
+        cartContainer.innerHTML = "<p>Your cart is empty.</p>";
+        return;
+    }
+
+    cartContainer.innerHTML = ''; // Clear previous contents
+
+    cart.forEach((item, index) => {
+        const cartItem = document.createElement('div');
+        cartItem.classList.add('cart-item');
+        cartItem.innerHTML = `
+            <h3>${item.name} (₹${item.price})</h3>
+            <div class="quantity-controls">
+                <button onclick="updateQuantity(${index}, -1)">-</button>
+                <span class="quantity">${item.quantity}</span>
+                <button onclick="updateQuantity(${index}, 1)">+</button>
+            </div>
+            <p class="price">Total: ₹${(item.price * item.quantity).toFixed(2)}</p>
+        `;
+        cartContainer.appendChild(cartItem);
+    });
+}
+
+// Function to update the quantity of items in the cart
+function updateQuantity(index, change) {
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    if (cart[index].quantity + change > 0) {
+        cart[index].quantity += change;
+        localStorage.setItem('cart', JSON.stringify(cart));
+        // Refresh the cart view
+        document.getElementById('cart-items').innerHTML = '';
+        loadCart();
+    }
+}
+
+// Proceed to payment function
+function proceedToPayment() {
+    const cart = JSON.parse(localStorage.getItem('cart'));
+    if (!cart || cart.length === 0) {
+        alert("Your cart is empty! Please add items before proceeding.");
+        return;
+    }
+    window.location.href = 'payment.html'; // Redirect to payment page
+}
+
+// Clear cart function
+function clearCart() {
+    localStorage.removeItem('cart'); // Clear the cart
+    document.getElementById('cart-items').innerHTML = '<p>Your cart is empty.</p>'; // Update the cart view
+}
+
+// Function to navigate back to the menu
+function goBack() {
+    window.location.href = 'menu.html'; // Redirect to the menu page
+}
+
+// Load cart items when the page loads
+window.onload = function() {
+    loadCart();
+    displayGreeting(); // Call the greeting function if needed
+};
+
+</script>
+
+</body>
+</html>

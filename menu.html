@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TELUGU VANTILLU - South Indian Tiffins</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 20px 0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin: 0;
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+        }
+
+        nav ul li {
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        nav ul li a:hover {
+            color: #28a745;
+        }
+
+        .menu-buttons {
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .menu-buttons button {
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            margin: 0 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 16px;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .menu-buttons button:hover {
+            background-color: #218838;
+            transform: scale(1.05);
+        }
+
+        .tiffin-items {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .tiffin {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            width: 300px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .tiffin img {
+            max-width: 300px;
+            max-height: 300px;
+            border-radius: 5px;
+        }
+
+        .tiffin h3 {
+            font-size: 18px;
+            margin: 10px 0;
+        }
+
+        .tiffin .price {
+            font-weight: bold;
+            color: #28a745;
+        }
+
+        .add-to-cart {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s, transform 0.2s;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .add-to-cart:hover {
+            background-color: #218838;
+            transform: scale(1.05);
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px 0;
+            background-color: #333;
+            color: #fff;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .notification {
+            display: none;
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #28a745;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+
+        .greeting {
+            text-align: center;
+            font-size: 24px;
+            margin: 20px 0;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <div class="logo">TELUGU VANTILLU</div>
+            <nav>
+                <ul>
+                    <li><a href="menu.html">Home</a></li>
+                    <li><a href="cart.html">Cart</a></li>
+                    
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="loc.html">location</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div id="notification" class="notification">Item added to cart</div>
+
+    <div class="greeting" id="greeting"></div>
+
+    <div class="menu-buttons">
+        <button onclick="showAll()">All Tiffins</button>
+        <button onclick="showVeg()">Veg Tiffins</button>
+    </div>
+
+    <section class="menu">
+        <div class="container">
+            <h2>Our Menu</h2>
+
+            <div class="tiffin-items" id="tiffin-list">
+                <!-- Telugu Tiffins Items -->
+                <div class="tiffin veg">
+                    <img src="Images/idly.jpg" alt="IDLI (4pcs)">
+                    <h3>IDLI (4pcs)</h3>
+                    <p class="price">₹50</p>
+                    <button class="add-to-cart" onclick="addToCart('IDLI (4pcs)', 50)">Add to Cart</button>
+                </div>
+
+                <div class="tiffin veg">
+                    <img src="Images/ghee_idli.jpg" alt="Ghee Idli (4pcs)">
+                    <h3>Ghee Idli (4pcs)</h3>
+                    <p class="price">₹60</p>
+                    <button class="add-to-cart" onclick="addToCart('Ghee Idli (4pcs)', 60)">Add to Cart</button>
+                </div>
+
+                <div class="tiffin veg">
+                    <img src="Images/mysore_bonda.jpg" alt="Mysore Bonda">
+                    <h3>Mysore Bonda</h3>
+                    <p class="price">₹50</p>
+                    <button class="add-to-cart" onclick="addToCart('Mysore Bonda', 50)">Add to Cart</button>
+                </div>
+
+                <div class="tiffin veg">
+                    <img src="Images/vada..jpg" alt="Vada">
+                    <h3>Vada</h3>
+                    <p class="price">₹50</p>
+                    <button class="add-to-cart" onclick="addToCart('Vada', 50)">Add to Cart</button>
+                </div>
+
+                <div class="tiffin veg">
+                    <img src="Images/punukulu.jpg" alt="Punukulu">
+                    <h3>Punukulu</h3>
+                    <p class="price">₹50</p>
+                    <button class="add-to-cart" onclick="addToCart('Punukulu', 50)">Add to Cart</button>
+                </div>
+
+                <div class="tiffin veg">
+                    <img src="Images/onion_bonda.jpg" alt="Onion Bonda">
+                    <h3>Onion Bonda</h3>
+                    <p class="price">₹50</p>
+                    <button class="add-to-cart" onclick="addToCart('Onion Bonda', 50)">Add to Cart</button>
+                </div>
+
+                <div class="tiffin veg">
+                    <img src="Images/gunta_punugalu.jpg" alt="Gunta Punugalu">
+                    <h3>Gunta Punugalu</h3>
+                    <p class="price">₹50</p>
+                    <button class="add-to-cart" onclick="addToCart('Gunta Punugalu', 50)">Add to Cart</button>
+                </div>
+
+                <div class="tiffin veg">
+                    <img src="Images/mirchi_bajji.jpg" alt="Mirchi Bajji">
+                    <h3>Mirchi Bajji</h3>
+                    <p class="price">₹15</p>
+                    <button class="add-to-cart" onclick="addToCart('Mirchi Bajji', 15)">Add to Cart</button>
+                </div>
+
+                <div class="tiffin veg">
+                    <img src="Images/tomota_bajji.jpg" alt="Tomota Bajji">
+                    <h3>Tomota Bajji</h3>
+                    <p class="price">₹15</p>
+                    <button class="add-to-cart" onclick="addToCart('Tomota Bajji', 15)">Add to Cart</button>
+                </div>
+
+                <div class="tiffin veg">
+                    <img src="Images/masala_batani.jpg" alt="Masala Batani">
+                    <h3>Masala Batani</h3>
+                    <p class="price">₹40</p>
+                    <button class="add-to-cart" onclick="addToCart('Masala Batani', 40)">Add to Cart</button>
+                </div>
+
+                <div class="tiffin veg">
+                    <img src="Images/minapa_attu.jpg" alt="Minapa Attu (2pcs)">
+                    <h3>Minapa Attu (2pcs)</h3>
+                    <p class="price">₹50</p>
+                    <button class="add-to-cart" onclick="addToCart('Minapa Attu (2pcs)', 50)">Add to Cart</button>
+                </div>
+
+                <div class="tiffin veg">
+                    <img src="Images/plane_dosa.jpg" alt="Plane Dosa">
+                    <h3>Plane Dosa</h3>
+                    <p class="price">₹50</p>
+                    <button class="add-to-cart" onclick="addToCart('Plane Dosa', 50)">Add to Cart</button>
+                </div>
+
+                <!-- Add more items similarly -->
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 TELUGU VANTILLU. All Rights Reserved by CHARUKESH CHOWDARY MADDUKURI.</p>
+    </footer>
+
+    <script>
+    // Function to add items to the cart
+function addToCart(itemName, price) {
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const existingItemIndex = cart.findIndex(item => item.name === itemName);
+
+    if (existingItemIndex !== -1) {
+        // If the item already exists in the cart, increment its quantity
+        cart[existingItemIndex].quantity += 1;
+    } else {
+        // If it's a new item, add it with a quantity of 1
+        cart.push({ name: itemName, price: price, quantity: 1 });
+    }
+    
+    localStorage.setItem('cart', JSON.stringify(cart));
+    showNotification();
+}
+
+// Function to show a notification
+function showNotification() {
+    const notification = document.getElementById('notification');
+    notification.style.display = 'block';
+    setTimeout(() => {
+        notification.style.display = 'none';
+    }, 2000);
+}
+
+// Function to show all tiffins
+function showAll() {
+    const tiffins = document.querySelectorAll('.tiffin');
+    tiffins.forEach(tiffin => tiffin.style.display = 'block');
+}
+
+// Function to show veg tiffins
+function showVeg() {
+    const tiffins = document.querySelectorAll('.tiffin');
+    tiffins.forEach(tiffin => {
+        if (!tiffin.classList.contains('veg')) {
+            tiffin.style.display = 'none';
+        } else {
+            tiffin.style.display = 'block';
+        }
+    });
+}
+
+// Function to display greeting based on time of day
+function displayGreeting() {
+    const userName = localStorage.getItem('userName'); // Assuming userName is stored in localStorage
+    const greetingDiv = document.getElementById('greeting');
+    const currentHour = new Date().getHours();
+    let greeting;
+
+    if (currentHour < 12) {
+        greeting = `Good Morning, ${userName}!`;
+    } else if (currentHour < 18) {
+        greeting = `Good Afternoon, ${userName}!`;
+    } else {
+        greeting = `Good Evening, ${userName}!`;
+    }
+
+    greetingDiv.textContent = greeting;
+}
+
+// Call the displayGreeting function when the page loads
+window.onload = function() {
+    displayGreeting();
+};
+
+    </script>
+</body>
+</html>

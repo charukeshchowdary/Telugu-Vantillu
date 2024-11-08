@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Personalized Greeting</title>
+    <title>Personalized Greeting with News Ticker</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -13,6 +13,49 @@
             height: 100vh;
             margin: 0;
             background-color: #f7f7f7;
+            flex-direction: column;
+        }
+
+        /* News Ticker Styles */
+        .news-ticker {
+            width: 100%;
+            background-color: #333;
+            color: white;
+            padding: 10px 0;
+            overflow: hidden;
+            position: fixed;
+            top: 0;
+            text-align: center;
+        }
+
+        .news-item {
+            display: inline-block;
+            font-size: 18px;
+            font-weight: bold;
+            animation: ticker-animation 6s linear infinite alternate; /* Left-to-right-to-left animation */
+        }
+
+        /* Disco colors animation */
+        @keyframes color-change {
+            0% { color: #ff1744; }
+            20% { color: #ff9100; }
+            40% { color: #fdd835; }
+            60% { color: #00e676; }
+            80% { color: #2979ff; }
+            100% { color: #d500f9; }
+        }
+
+        /* Text movement animation */
+        @keyframes ticker-animation {
+            0% { transform: translateX(-100%); }  /* Start offscreen from the left */
+            50% { transform: translateX(0); }      /* Centered */
+            100% { transform: translateX(100%); }  /* Move offscreen to the right */
+        }
+
+        /* Applying color change animation */
+        .news-item {
+            animation: ticker-animation 6s ease-in-out infinite alternate,
+                       color-change 5s linear infinite; /* Disco effect */
         }
 
         .container {
@@ -21,6 +64,7 @@
             border-radius: 10px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             width: 300px;
+            margin-top: 70px; /* Offset from the ticker */
         }
 
         h2 {
@@ -59,35 +103,13 @@
             font-weight: bold;
         }
     </style>
-    <script>
-        function greetUser(event) {
-            event.preventDefault(); // Prevent form submission
-
-            // Retrieve username value
-            const username = document.getElementById("username").value;
-            localStorage.setItem('userName', username); // Store the username in localStorage
-
-            const hours = new Date().getHours();
-            let timeOfDay = "day";
-
-            if (hours < 12) {
-                timeOfDay = "morning";
-            } else if (hours < 18) {
-                timeOfDay = "afternoon";
-            } else {
-                timeOfDay = "evening";
-            }
-
-            document.getElementById("greeting").innerHTML = `Hi ${username}, good ${timeOfDay}!`;
-
-            // Simulate a delay before redirecting to the next page
-            setTimeout(function() {
-                window.location.href = "menu.html"; // Redirect to the next page
-            }, 2000); // 2 seconds delay for the greeting to be visible
-        }
-    </script>
 </head>
 <body>
+
+<!-- News Ticker -->
+<div class="news-ticker">
+    <span class="news-item" id="news-item">Welcome to LPU! Stay updated with the latest campus events!</span>
+</div>
 
 <div class="container">
     <h2>User Information</h2>
@@ -98,6 +120,60 @@
     </form>
     <div class="greeting" id="greeting"></div>
 </div>
+
+<script>
+    // Array of news items to display
+    const newsItems = [
+        "LPU introduces new AI courses!",
+        "Diwali celebration on campus this weekend!",
+        "Placement drive happening next Monday!",
+        "New food stalls open near Block A!",
+        "Free workshops on coding every Thursday!"
+    ];
+
+    let currentNewsIndex = 0;
+
+    function displayNextNewsItem() {
+        const newsElement = document.getElementById("news-item");
+        
+        // Update the text content with the current news item
+        newsElement.textContent = newsItems[currentNewsIndex];
+        
+        // Cycle through news items
+        currentNewsIndex = (currentNewsIndex + 1) % newsItems.length;
+
+        // Call displayNextNewsItem again after 5 seconds
+        setTimeout(displayNextNewsItem, 5000);
+    }
+
+    // Start displaying news items when the page loads
+    window.onload = displayNextNewsItem;
+
+    // Greeting script
+    function greetUser(event) {
+        event.preventDefault();
+
+        const username = document.getElementById("username").value;
+        localStorage.setItem('userName', username);
+
+        const hours = new Date().getHours();
+        let timeOfDay = "day";
+
+        if (hours < 12) {
+            timeOfDay = "morning";
+        } else if (hours < 18) {
+            timeOfDay = "afternoon";
+        } else {
+            timeOfDay = "evening";
+        }
+
+        document.getElementById("greeting").innerHTML = `Hi ${username}, good ${timeOfDay}!`;
+
+        setTimeout(function() {
+            window.location.href = "menu.html";
+        }, 2000);
+    }
+</script>
 
 </body>
 </html>

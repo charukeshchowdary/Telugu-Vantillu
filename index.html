@@ -6,125 +6,182 @@
     <title>Telugu Vantillu - Location</title>
     <style>
         body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f7f7f7; /* Light gray background */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-}
+            font-family: 'Arial', sans-serif;
+            background-color: #f7f7f7;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            flex-direction: column;
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+            background-image: url('./Images/backimg.webp'); /* Replace 'path_to_your_image.jpg' with the actual path to your image */
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            flex-direction: column;
+        }
 
-.container {
-    background: white; /* White background for the container */
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    text-align: center; /* Center the text */
-}
+        /* News Ticker Styles */
+        .news-ticker {
+            width: 100%;
+            background-color: #333;
+            color: white;
+            padding: 10px 0;
+            overflow: hidden;
+            text-align: center;
+            position: fixed;
+            top: 0;
+        }
 
-h1 {
-    color: #4CAF50; /* Green color for the heading */
-    font-size: 24px; /* Increase heading size */
-    margin-bottom: 10px;
-}
+        .news-item {
+            display: inline-block;
+            font-size: 18px;
+            font-weight: bold;
+            animation: ticker-animation 6s linear infinite alternate, color-change 5s linear infinite;
+        }
 
-p {
-    font-size: 16px; /* Font size for the paragraph */
-    margin-bottom: 20px;
-}
+        /* Disco colors animation */
+        @keyframes color-change {
+            0% { color: #ff1744; }
+            20% { color: #ff9100; }
+            40% { color: #fdd835; }
+            60% { color: #00e676; }
+            80% { color: #2979ff; }
+            100% { color: #d500f9; }
+        }
 
-.location-input, .location-selector {
-    margin: 15px 0; /* Space between input elements */
-}
+        /* Text movement animation */
+        @keyframes ticker-animation {
+            0% { transform: translateX(-100%); }
+            50% { transform: translateX(0); }
+            100% { transform: translateX(100%); }
+        }
 
-input[type="text"], select {
-    width: 100%; /* Full width */
-    padding: 10px; /* Padding for inputs */
-    border: 1px solid #ccc; /* Light gray border */
-    border-radius: 5px; /* Rounded corners */
-    font-size: 16px; /* Font size for inputs */
-}
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            margin-top: 70px;
+        }
 
-button {
-    background-color: #4CAF50; /* Green button */
-    color: white; /* White text */
-    padding: 12px 20px; /* Button padding */
-    border: none; /* Remove border */
-    border-radius: 5px; /* Rounded corners */
-    font-size: 16px; /* Font size for the button */
-    cursor: pointer; /* Pointer cursor on hover */
-    transition: background-color 0.3s; /* Smooth transition */
-}
+        h1 {
+            color: #4CAF50;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
 
-button:hover {
-    background-color: #45a049; /* Darker green on hover */
-}
+        p {
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
 
-body {
-    background-image: url(./Images/backimg.webp); /* Replace with your image path */
-    background-size: cover; /* Cover the entire background */
-    background-position: center; /* Center the background image */
-}
+        .location-input, .location-selector {
+            margin: 15px 0;
+        }
 
+        input[type="text"], select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
     </style>
-
 </head>
 <body>
-    <script>
-        document.getElementById('continue-btn').addEventListener('click', function() {
-    const manualLocation = document.getElementById('manual-location').value.trim();
-    const selectedLocation = document.getElementById('location').value;
-    let locationToPass;
 
-    if (manualLocation) {
-        locationToPass = manualLocation;
-    } else if (selectedLocation) {
-        locationToPass = selectedLocation;
-    } else {
-        alert("Please enter or select a location.");
-        return; // Exit the function if no location is provided
-    }
+<!-- News Ticker -->
+<div class="news-ticker">
+    <span class="news-item" id="news-item">Welcome to Telugu Vantillu! Explore our new menu and offers at LPU.</span>
+</div>
 
-    // Redirect to the pickup/delivery options page with the location as a URL parameter
-    window.location.href = "pickup_delivery.html?location=" + encodeURIComponent(locationToPass);
-});
+<div class="container">
+    <h1>Welcome to Telugu Vantillu</h1>
+    <p>Please enter or select your location at LPU</p>
 
-    </script>
-    <div class="container">
-        <h1>Welcome to Telugu Vantillu</h1>
-        <p>Please enter or select your location at LPU</p>
-        
-        
-
-        <!-- LPU Hostels Dropdown -->
-        <div class="location-selector">
-            <label for="location">Or choose your hostel:</label>
-            <select id="location">
-                <option value="">--Select Location--</option>
-                <option value="BH1">BH1</option>
-                <option value="BH2">BH2</option>
-                <option value="BH3">BH3</option>
-                <option value="BH4">BH4</option>
-                <option value="BH5">BH5</option>
-                <option value="BH6">BH6</option>
-                <option value="BH7">BH7</option>
-                <option value="GH1">GH1</option>
-                <option value="GH2">GH2</option>
-                <option value="GH3">GH3</option>
-                <option value="GH4">GH4</option>
-                <option value="GH5">GH5</option>
-                <option value="GH6">GH6</option>
-                <option value="GH7">GH7</option>
-                <option value="Apartment">Apartment</option>
-            </select>
-        </div>
-
-        <!-- Continue Button -->
-        <button id="continue-btn"><a href="contact.html">Continue</a></button>
+    <!-- LPU Hostels Dropdown -->
+    <div class="location-selector">
+        <label for="location">Or choose your hostel:</label>
+        <select id="location">
+            <option value="">--Select Location--</option>
+            <option value="BH1">BH1</option>
+            <option value="BH2">BH2</option>
+            <option value="BH3">BH3</option>
+            <option value="BH4">BH4</option>
+            <option value="BH5">BH5</option>
+            <option value="BH6">BH6</option>
+            <option value="BH7">BH7</option>
+            <option value="GH1">GH1</option>
+            <option value="GH2">GH2</option>
+            <option value="GH3">GH3</option>
+            <option value="GH4">GH4</option>
+            <option value="GH5">GH5</option>
+            <option value="GH6">GH6</option>
+            <option value="GH7">GH7</option>
+            <option value="Apartment">Apartment</option>
+        </select>
     </div>
 
-    <!-- JavaScript to handle location input/selection -->
-    <script src="script.js"></script>
+    <!-- Continue Button -->
+    <button id="continue-btn">Continue</button>
+</div>
+
+<<script>
+    // JavaScript to handle location input/selection
+    document.getElementById('continue-btn').addEventListener('click', function() {
+        const selectedLocation = document.getElementById('location').value;
+        if (!selectedLocation) {
+            alert("Please select a location.");
+            return;
+        }
+        // Redirecting to contact.html with the selected location as a URL parameter
+        window.location.href = "contact.html?location=" + encodeURIComponent(selectedLocation);
+    });
+
+    // Array of news items for ticker
+    const newsItems = [
+        "Welcome to Telugu Vantillu! Explore our new menu and offers at LPU.",
+        "Special discount for BH1 residents this week!",
+        "New items added to our South Indian menu!",
+        "Celebrate with us! Diwali specials available now.",
+        "Free delivery for GH hostels on weekends!"
+    ];
+    let currentNewsIndex = 0;
+
+    function displayNextNewsItem() {
+        const newsElement = document.getElementById("news-item");
+        newsElement.textContent = newsItems[currentNewsIndex];
+        currentNewsIndex = (currentNewsIndex + 1) % newsItems.length;
+        setTimeout(displayNextNewsItem, 5000);
+    }
+
+    window.onload = displayNextNewsItem;
+</script>
+
+
 </body>
 </html>

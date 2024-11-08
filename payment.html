@@ -59,6 +59,12 @@
             text-align: center;
         }
 
+        .google-form-button {
+            background-color: #4285F4;
+            color: white;
+            margin-top: 20px;
+        }
+
         footer {
             text-align: center;
             padding: 20px 0;
@@ -73,12 +79,17 @@
             border: 1px solid #b8daff;
             color: #31708f;
             display: none;
-        } 
-        body {
-    background-image: url(./Images/backimg.webp); /* Replace with your image path */
-    background-size: cover; /* Cover the entire background */
-    background-position: center; /* Center the background image */
-}
+        }
+
+        #form-confirmation {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        #form-confirmation input[type="checkbox"] {
+            margin-right: 10px;
+        }
     </style>
 </head>
 <body>
@@ -109,7 +120,16 @@
 
     <div class="total-price" id="total-price">Total: ₹0.00</div>
 
-    <button onclick="proceedToPay()">Proceed to Pay</button>
+    <button class="google-form-button" onclick="window.open('https://forms.gle/x8KT4fYQL8M2sonx5')">
+        Fill your details
+    </button>
+
+    <div id="form-confirmation">
+        <input type="checkbox" id="confirm-form">
+        <label for="confirm-form">I have completed the feedback form.</label>
+    </div>
+
+    <button id="proceed-button" onclick="proceedToPay()" disabled>Proceed to Pay</button>
 
     <div id="confirmation-message"></div>
 </div>
@@ -124,7 +144,7 @@
         let total = 0;
 
         cart.forEach(item => {
-            total += item.price * item.quantity; // Adjust for quantity if needed
+            total += item.price * item.quantity;
         });
 
         document.getElementById('total-price').textContent = `Total: ₹${total.toFixed(2)}`;
@@ -150,22 +170,25 @@
         }
 
         const totalPrice = document.getElementById('total-price').textContent;
-        const userName = localStorage.getItem('userName') || "Valued Customer"; // Assuming userName is stored in localStorage
+        const userName = localStorage.getItem('userName') || "Valued Customer";
 
-        // Show confirmation message
         const confirmationMessage = document.getElementById('confirmation-message');
         confirmationMessage.style.display = 'block';
         confirmationMessage.innerHTML = `Thank you, ${userName}! Your order is being prepared and will be delivered in 20 minutes. ${totalPrice} has been processed with ${selectedPaymentMethod} payment.`;
-
-        // Add actual payment processing logic here.
     }
 
-    // Load the total amount and add event listeners on page load
     window.onload = function() {
         loadTotal();
         const paymentOptions = document.querySelectorAll('input[name="payment"]');
         paymentOptions.forEach(option => {
             option.addEventListener('change', toggleTransactionIdInput);
+        });
+
+        const confirmFormCheckbox = document.getElementById('confirm-form');
+        const proceedButton = document.getElementById('proceed-button');
+
+        confirmFormCheckbox.addEventListener('change', function() {
+            proceedButton.disabled = !confirmFormCheckbox.checked;
         });
     };
 </script>
